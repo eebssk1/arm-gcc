@@ -21,6 +21,8 @@ export CFLAGS="$(cat $SDIR/ff.txt)"
 export CXXFLAGS="-fdeclone-ctor-dtor $CFLAGS"
 
 doit(){
+
+
 cd m_binutils/build
 
 ../configure --target=$2 --prefix=$SDIR/$2 --enable-64-bit-bfd --enable-gold --enable-initfini-array --enable-nls --disable-rpath --enable-install-libiberty --enable-plugins --enable-deterministic-archives --disable-werror --enable-lto --disable-gdb --disable-gprof; checkreturn $?
@@ -33,6 +35,16 @@ rm -rf * .*
 cd $SDIR
 
 cp -a musl/$1/. $2/$2/
+
+if [ $1 = 32 ]; then
+ARCH=armhf
+elif [ $1 = 64 ]; then
+ARCH=aarch64
+fi
+curl -L "https://mirrors.edge.kernel.org/alpine/latest-stable/main/$ARCH/linux-headers-5.19.5-r0.apk" | tar -zxf -
+mkdir $2/$2/sys-include
+cp -a usr/include/. $2/$2/sys-include
+rm -rf usr .PKGINFO .SIGN*
 
 cd m_gcc/build
 
