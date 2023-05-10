@@ -48,13 +48,13 @@ rm -rf usr .PKGINFO .SIGN*
 
 cd m_gcc/build
 
-export CFLAGS_FOR_TARGET="-fgraphite -fgraphite-identity -fipa-pta -flimit-function-alignment -fsched-spec-load -fsched-stalled-insns=6 -fsched-stalled-insns-dep=16 -fira-loop-pressure -mtune=cortex-a55"
+export CFLAGS_FOR_TARGET="-fgraphite -fgraphite-identity -fipa-pta -flimit-function-alignment -fsched-spec-load -fsched-stalled-insns=4 -fsched-stalled-insns-dep=12 -fira-loop-pressure"
 export CXXFLAGS_FOR_TARGET="-fdeclone-ctor-dtor $CFLAGS_FOR_TARGET"
 
 if [ $1 = 32 ]; then
 ADDI="--with-arch=armv7-a --with-fpu=neon --with-float=hard"
 fi
-../configure --prefix=$SDIR/$2 --with-local-prefix=$SDIR/$2/local --target=$2 --enable-checking=release --with-tune=cortex-a55 --enable-graphite --enable-lto --disable-rpath --enable-nls --disable-werror --disable-symvers --disable-libstdcxx-debug --disable-libsanitizer --disable-libssp --enable-languages=c,c++,lto $ADDI; checkreturn $?
+../configure --prefix=$SDIR/$2 --with-local-prefix=$SDIR/$2/local --target=$2 --enable-checking=release --with-tune=cortex-a76 --enable-graphite --enable-lto --disable-rpath --enable-nls --disable-werror --disable-symvers --disable-libstdcxx-debug --disable-libsanitizer --disable-libssp --enable-languages=c,c++,lto $ADDI; checkreturn $?
 make -j2 all; checkreturn $?
 make install
 
