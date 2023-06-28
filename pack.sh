@@ -1,6 +1,6 @@
 mkdir arm-gcc
 
-cp -a ./aarch64-linux-musl ./arm-linux-musleabi ./arm-gcc/
+cp -a ./aarch64-linux-musl ./arm-linux-musleabihf ./arm-gcc/
 
 cat rev > arm-gcc/infs.txt
 cat tag >> arm-gcc/infs.txt
